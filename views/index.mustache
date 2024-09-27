@@ -140,7 +140,7 @@
                 <a href="/annonces/{{id}}/edit">
                     <button class="modify-button">Modifier</button>
                 </a>
-                <form action="/annonces/{{id}}" method="Delete" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">
+                <form action="/annonces/{{id}}/delete" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">
                     <button type="submit" class="delete-button">Supprimer</button>
                 </form>
             </div>

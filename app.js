@@ -1,6 +1,8 @@
 const express = require("express");
 const mustacheExpress = require("mustache-express");
 const connectDatabase = require("./config/database");
+// const methodOverride = require('method-override');  // Ajout de l'import correct
+
 require("dotenv").config();
 console.log('MongoDB URI:', process.env.MONGODB_URI);
 
@@ -16,6 +18,7 @@ app.set("view engine", "mustache");
 app.set("views", __dirname + "/views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(methodOverride('_method'));
 
 
 // Connexion à la base de données
