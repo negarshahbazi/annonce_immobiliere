@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Annonces</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #create-annonce-button {
+            display: block; /* Permet d'afficher le bouton sur une nouvelle ligne */
+            margin: 20px auto; /* Centre le bouton horizontalement */
+            padding: 10px 20px; /* Espace intérieur du bouton */
+            background-color: #28a745; /* Couleur du bouton de création */
+            color: white; /* Couleur du texte du bouton */
+            border: none; /* Supprime la bordure par défaut */
+            border-radius: 4px; /* Coins arrondis */
+            cursor: pointer; /* Change le curseur au survol */
+            text-align: center; /* Centre le texte */
+            text-decoration: none; /* Supprime le soulignement */
+            width: 200px; /* Largeur fixe */
+        }
+
+        #create-annonce-button:hover {
+            background-color: #218838; /* Couleur au survol */
+        }
+
+        #annonces-container {
+            display: flex;
+            flex-wrap: wrap; /* Permet aux annonces de passer à la ligne suivante */
+            justify-content: center; /* Centre les annonces */
+            gap: 20px; /* Espace entre les annonces */
+            margin-top: 20px; /* Espace au-dessus du conteneur */
+        }
+
+        .annonce {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px; /* Largeur fixe pour chaque annonce */
+            text-align: left; /* Alignement du texte à gauche */
+        }
+
+        .annonce img {
+            width: 100%; /* Image pleine largeur */
+            height: 200px; /* Hauteur fixe pour toutes les images */
+            object-fit: cover; /* Ajuste l'image pour couvrir l'espace */
+            border: 2px solid #007bff; /* Bordure autour de l'image */
+            border-radius: 4px; /* Coins arrondis pour la bordure */
+            margin-bottom: 10px; /* Espace en bas de l'image */
+        }
+
+        .annonce h2 {
+            margin: 10px 0; /* Marge autour du titre */
+            color: #555; /* Couleur du titre */
+        }
+
+        .annonce p {
+            margin: 5px 0; /* Marge autour des paragraphes */
+            color: #777; /* Couleur des descriptions */
+        }
+
+        .button-container {
+            margin-top: 10px; /* Espace au-dessus des boutons */
+            display: flex;
+            justify-content: space-between; /* Espacement entre les boutons */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modify-button {
+            background-color: #007bff; /* Couleur du bouton Modifier */
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #dc3545; /* Couleur du bouton Supprimer */
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9; /* Effet de survol */
+        }
+
+        @media (max-width: 768px) {
+            #annonces-container {
+                justify-content: space-around; /* Espacement pour mobile */
+            }
+
+            .annonce {
+                width: 90%; /* Largeur plus étroite sur mobile */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .annonce {
+                width: 30%; /* Trois annonces par ligne sur grands écrans */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Annonces</h1>
+
+    <!-- Bouton pour créer une nouvelle annonce -->
+    <a id="create-annonce-button" href="/annonces/new">Créer une nouvelle annonce</a>
+
+    <div id="annonces-container">
+        {{#annonces}}
+        <div class="annonce">
+            <img src="{{image}}" alt="{{titre}}">
+            <h2>{{titre}}</h2>
+            <p><strong>Prix:</strong> {{prix}} €</p>
+            <p><strong>Ville:</strong> {{localisation.ville}}</p>
+            <p><strong>Description:</strong> {{description}}</p>
+            <p><strong>Surface:</strong> {{surface}} m²</p>
+            <p><strong>Chambres:</strong> {{caracteristiques.chambre}}</p>
+            <p><strong>Salles de bain:</strong> {{caracteristiques.salleDeBain}}</p>
+            <p><strong>Balcon:</strong> {{caracteristiques.balcon}}</p>
+            <p><strong>Jardin:</strong> {{caracteristiques.jardin}}</p>
+            <p><strong>Parking:</strong> {{caracteristiques.parking}}</p>
+            <div class="button-container">
+                <a href="/annonces/{{id}}/edit">
+                    <button class="modify-button">Modifier</button>
+                </a>
+                <form action="/annonces/{{id}}" method="Delete" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">
+                    <button type="submit" class="delete-button">Supprimer</button>
+                </form>
+            </div>
+        </div>
+        {{/annonces}}
+
+        {{^annonces}}
+        <p>Aucune annonce disponible pour le moment.</p>
+        {{/annonces}}
+    </div>
+</body>
+</html>

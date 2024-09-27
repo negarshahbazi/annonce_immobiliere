@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une Annonce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Occupé toute la hauteur de l'écran */
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px; /* Largeur du formulaire */
+            text-align: left; /* Alignement du texte à gauche */
+            overflow-y: auto; /* Ajout d'un défilement si nécessaire */
+            max-height: 90vh; /* Hauteur maximale pour la fenêtre */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center; /* Centrer le titre */
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold; /* Mettre les labels en gras */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: calc(100% - 12px); /* Ajuster pour la bordure */
+            padding: 8px;
+            margin-bottom: 15px; /* Espace entre les champs */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px; /* Taille de police uniforme */
+        }
+
+        textarea {
+            height: 60px; /* Hauteur fixe pour la zone de texte */
+        }
+
+        button {
+            background-color: #5cb85c; /* Couleur de fond du bouton */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%; /* Bouton plein écran */
+            font-size: 16px; /* Taille de police du bouton */
+        }
+
+        button:hover {
+            background-color: #4cae4c; /* Couleur au survol */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff; /* Couleur du lien */
+            text-decoration: none;
+            text-align: center; /* Centrer le lien */
+            width: 100%; /* Lien plein écran */
+            padding: 10px 0; /* Espace autour du lien */
+            font-size: 14px; /* Taille de police uniforme */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Souligner au survol */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Créer une Nouvelle Annonce</h1>
+        <form action="/annonces" method="POST" enctype="multipart/form-data">
+            <label for="titre">Titre:</label>
+            <input type="text" name="titre" required>
+
+            <label for="prix">Prix:</label>
+            <input type="number" name="prix" required>
+
+            <label for="description">Description:</label>
+            <textarea name="description" required></textarea>
+
+            <label for="surface">Surface (m²):</label>
+            <input type="number" name="surface" required>
+
+            <label for="localisation.ville">Ville:</label>
+            <input type="text" name="localisation.ville" required>
+
+            <label for="localisation.codePostal">Code Postal:</label> <!-- Ajout du champ code postal -->
+            <input type="text" name="localisation.codePostal" required>
+
+            <h2>Caractéristiques</h2>
+            <label for="caracteristiques.chambre">Chambres:</label>
+            <input type="number" name="caracteristiques.chambre" required>
+
+            <label for="caracteristiques.salleDeBain">Salles de bain:</label>
+            <input type="number" name="caracteristiques.salleDeBain" required>
+
+            <label for="caracteristiques.balcon">Balcon:</label>
+            <select name="caracteristiques.balcon" required>
+                <option value="">Sélectionnez</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="caracteristiques.jardin">Jardin:</label>
+            <select name="caracteristiques.jardin" required>
+                <option value="">Sélectionnez</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="caracteristiques.parking">Parking:</label>
+            <select name="caracteristiques.parking" required>
+                <option value="">Sélectionnez</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="image">Image:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button class="space" type="submit">Créer l'annonce</button>
+        </form>
+        <a href="/annonces">Retour à la liste des annonces</a>
+    </div>
+</body>
+</html>
