@@ -1,0 +1,37 @@
+# Node modules
+node_modules/
+
+# Environnement variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dossiers de test de coverage
+coverage/
+
+# Dossiers temporaires du système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Output de build (si applicable)
+dist/
+build/
+
+# Cache
+.cache/
+
+# Fichiers de configuration des IDEs
+.vscode/
+.idea/
+
+# Jest snapshots
+*.snap
+
+# Configuration spécifique à l'OS
+*.swp
+*.swo

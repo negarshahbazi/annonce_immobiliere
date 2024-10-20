@@ -3,6 +3,8 @@ const router = express.Router();
 const Annonce = require("../models/Annonce");
 const multer = require("multer");
 const path = require("path");
+const validator = require("validator"); // Import de validator
+
 
 // le dossier 'public/img' existe, 
 const imgDir = path.join(__dirname, "../public/img");
@@ -24,50 +26,66 @@ router.get("/new", (req, res) => {
     res.render("createAnnonce");
 });
 
+// POST /annonces (Création d'une nouvelle annonce avec validation)
 router.post("/", upload.single("image"), async (req, res) => {
-  try {
-      console.log(req.body); // Pour voir ce qui est envoyé
-
-      if (!req.file) {
-          return res.status(400).json({ message: "Aucune image téléchargée." });
-      }
-
-      // Récupération des valeurs des champs
-      const { titre, prix, description, surface, 'localisation.ville': ville, 'localisation.codePostal': codePostal, 
-              'caracteristiques.chambre': chambre, 'caracteristiques.salleDeBain': salleDeBain, 
-              'caracteristiques.balcon': balcon, 'caracteristiques.jardin': jardin, 'caracteristiques.parking': parking } = req.body;
-
-      // Vérifie si toutes les informations nécessaires sont présentes
-      if (!ville || !codePostal) {
-          return res.status(400).json({ message: "Ville ou code postal manquant." });
-      }
-
-      const annonce = new Annonce({
-          titre,
-          prix,
-          description,
-          surface,
-          localisation: {
-              ville,
-              codePostal
-          },
-          caracteristiques: {
-              chambre,
-              salleDeBain,
-              balcon,
-              jardin,
-              parking
-          },
-          image: `/img/${req.file.filename}` // Chemin vers l'image téléchargée
-      });
-
-      const savedAnnonce = await annonce.save();
-      res.redirect("/annonces"); // Redirige vers la liste des annonces
-  } catch (error) {
-      res.status(400).json({ message: error.message });
-  }
-});
-
+    try {
+        console.log(req.body); // Pour voir ce qui est envoyé
+  
+        if (!req.file) {
+            return res.status(400).json({ message: "Aucune image téléchargée." });
+        }
+  
+        // Récupération des valeurs des champs
+        const { titre, prix, description, surface, 'localisation.ville': ville, 'localisation.codePostal': codePostal, 
+                'caracteristiques.chambre': chambre, 'caracteristiques.salleDeBain': salleDeBain, 
+                'caracteristiques.balcon': balcon, 'caracteristiques.jardin': jardin, 'caracteristiques.parking': parking } = req.body;
+  
+        // Vérifications de base avec validator
+        if (validator.isEmpty(titre)) {
+            return res.status(400).json({ message: "Le titre est requis." });
+        }
+  
+        if (!validator.isNumeric(prix.toString()) || parseFloat(prix) <= 0) {
+            return res.status(400).json({ message: "Le prix doit être un nombre valide supérieur à 0." });
+        }
+  
+        if (validator.isEmpty(ville)) {
+            return res.status(400).json({ message: "La ville est requise." });
+        }
+  
+        if (!validator.isPostalCode(codePostal, 'FR')) { // Vérifie le code postal pour la France
+            return res.status(400).json({ message: "Le code postal n'est pas valide." });
+        }
+  
+        if (!validator.isNumeric(surface.toString()) || parseFloat(surface) <= 0) {
+            return res.status(400).json({ message: "La surface doit être un nombre valide supérieur à 0." });
+        }
+  
+        const annonce = new Annonce({
+            titre,
+            prix,
+            description,
+            surface,
+            localisation: {
+                ville,
+                codePostal
+            },
+            caracteristiques: {
+                chambre: parseInt(chambre) || 0, // Assure que c'est un nombre
+                salleDeBain: parseInt(salleDeBain) || 0, // Assure que c'est un nombre
+                balcon: balcon === 'oui', // Convertir en boolean
+                jardin: jardin === 'oui', // Convertir en boolean
+                parking: parking === 'oui' // Convertir en boolean
+            },
+            image: `/img/${req.file.filename}` // Chemin vers l'image téléchargée
+        });
+  
+        const savedAnnonce = await annonce.save();
+        res.redirect("/annonces"); // Redirige vers la liste des annonces
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+  });
 
 // GET /annonces (Liste des annonces)
 router.get("/", async (req, res) => {

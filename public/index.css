@@ -1,0 +1,166 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding-top: 60px; /* Pour éviter que le contenu passe sous le header */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Style pour le header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.9); /* Transparent avec un fond blanc léger */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Pour s'assurer que le header est toujours au-dessus */
+}
+
+header .logo {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+header .auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+header .auth-buttons a {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+header .login-button {
+    background-color: #007bff;
+}
+
+header .register-button {
+    background-color: #28a745;
+}
+
+header .auth-buttons a:hover {
+    opacity: 0.9;
+}
+
+#create-annonce-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+}
+
+#create-annonce-button:hover {
+    background-color: #218838;
+}
+
+#annonces-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.annonce {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+}
+
+.annonce img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.annonce h2 {
+    margin: 10px 0;
+    color: #555;
+}
+
+.annonce p {
+    margin: 5px 0;
+    color: #777;
+}
+
+.button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modify-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    #annonces-container {
+        justify-content: space-around;
+    }
+
+    .annonce {
+        width: 90%;
+    }
+}
+
+@media (min-width: 769px) {
+    .annonce {
+        width: 30%;
+    }
+}
+.logout-button {
+    display: inline-block; /* Assurez-vous que le bouton s'affiche */
+    background-color: #dc3545; /* Couleur de fond rouge */
+    color: white; /* Couleur du texte */
+    padding: 10px 15px; /* Espacement interne */
+    text-decoration: none; /* Supprimer le soulignement */
+    border-radius: 5px; /* Coins arrondis */
+}

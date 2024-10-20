@@ -3,120 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css"> <!-- Lien vers le fichier CSS -->
     <title>Liste des Annonces</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        #create-annonce-button {
-            display: block; /* Permet d'afficher le bouton sur une nouvelle ligne */
-            margin: 20px auto; /* Centre le bouton horizontalement */
-            padding: 10px 20px; /* Espace intérieur du bouton */
-            background-color: #28a745; /* Couleur du bouton de création */
-            color: white; /* Couleur du texte du bouton */
-            border: none; /* Supprime la bordure par défaut */
-            border-radius: 4px; /* Coins arrondis */
-            cursor: pointer; /* Change le curseur au survol */
-            text-align: center; /* Centre le texte */
-            text-decoration: none; /* Supprime le soulignement */
-            width: 200px; /* Largeur fixe */
-        }
-
-        #create-annonce-button:hover {
-            background-color: #218838; /* Couleur au survol */
-        }
-
-        #annonces-container {
-            display: flex;
-            flex-wrap: wrap; /* Permet aux annonces de passer à la ligne suivante */
-            justify-content: center; /* Centre les annonces */
-            gap: 20px; /* Espace entre les annonces */
-            margin-top: 20px; /* Espace au-dessus du conteneur */
-        }
-
-        .annonce {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px; /* Largeur fixe pour chaque annonce */
-            text-align: left; /* Alignement du texte à gauche */
-        }
-
-        .annonce img {
-            width: 100%; /* Image pleine largeur */
-            height: 200px; /* Hauteur fixe pour toutes les images */
-            object-fit: cover; /* Ajuste l'image pour couvrir l'espace */
-            border: 2px solid #007bff; /* Bordure autour de l'image */
-            border-radius: 4px; /* Coins arrondis pour la bordure */
-            margin-bottom: 10px; /* Espace en bas de l'image */
-        }
-
-        .annonce h2 {
-            margin: 10px 0; /* Marge autour du titre */
-            color: #555; /* Couleur du titre */
-        }
-
-        .annonce p {
-            margin: 5px 0; /* Marge autour des paragraphes */
-            color: #777; /* Couleur des descriptions */
-        }
-
-        .button-container {
-            margin-top: 10px; /* Espace au-dessus des boutons */
-            display: flex;
-            justify-content: space-between; /* Espacement entre les boutons */
-        }
-
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .modify-button {
-            background-color: #007bff; /* Couleur du bouton Modifier */
-            color: white;
-        }
-
-        .delete-button {
-            background-color: #dc3545; /* Couleur du bouton Supprimer */
-            color: white;
-        }
-
-        button:hover {
-            opacity: 0.9; /* Effet de survol */
-        }
-
-        @media (max-width: 768px) {
-            #annonces-container {
-                justify-content: space-around; /* Espacement pour mobile */
-            }
-
-            .annonce {
-                width: 90%; /* Largeur plus étroite sur mobile */
-            }
-        }
-
-        @media (min-width: 769px) {
-            .annonce {
-                width: 30%; /* Trois annonces par ligne sur grands écrans */
-            }
-        }
-    </style>
 </head>
 <body>
+
+    <!-- Header fixe avec les boutons login et register -->
+<header>
+    <div class="logo">Agence Imobilieres</div>
+    <div class="auth-buttons">
+        {{#username}} <!-- Vérifie si le nom d'utilisateur est défini -->
+            <span>Salut, {{username}}!</span>
+            <a href="/auth/logout" class="logout-button">Déconnexion</a>
+        {{/username}}
+        {{^username}} <!-- Si aucun nom d'utilisateur n'est défini -->
+            <a href="/auth/login" class="login-button">Connexion</a>
+            <a href="/auth/register" class="register-button">Inscription</a>
+        {{/username}}
+    </div>
+</header>
+
+
     <h1>Liste des Annonces</h1>
 
     <!-- Bouton pour créer une nouvelle annonce -->
